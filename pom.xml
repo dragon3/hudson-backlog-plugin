@@ -7,7 +7,6 @@
   <version>1.0-SNAPSHOT</version>
   
   <properties>
-    <!-- which version of Hudson is this plugin built against? -->
     <hudson.version>1.300</hudson.version>
   </properties>
 
@@ -28,10 +27,6 @@
   </dependencies>
   
   <build>
-    <!--
-      Since new versions need to overwrite old versions, it's better
-      not to have version number in the .hpi file name.
-    -->
     <finalName>${project.artifactId}</finalName>
     <defaultGoal>package</defaultGoal>
     <plugins>
@@ -51,10 +46,6 @@
     </plugins>
   </build>
 
-  <!--
-    Get everything from http://maven.glassfish.org/content/groups/public/ ,
-    which aggregates everything we need, including central.
-  -->
   <repositories>
     <repository>
       <id>central</id>
