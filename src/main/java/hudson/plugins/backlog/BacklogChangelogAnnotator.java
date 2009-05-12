@@ -16,11 +16,12 @@ public class BacklogChangelogAnnotator extends ChangeLogAnnotator {
 	@Override
 	public void annotate(AbstractBuild<?, ?> build, Entry change,
 			MarkupText text) {
-		BacklogProjectProperty bpp = build.getProject().getProperty(BacklogProjectProperty.class);
-        if(bpp == null || bpp.projectURL == null) {
-            return; // not configured
-        }
-        annotate(bpp.projectURL, text);
+		BacklogProjectProperty bpp = build.getProject().getProperty(
+				BacklogProjectProperty.class);
+		if (bpp == null || bpp.projectURL == null) {
+			return; // not configured
+		}
+		annotate(bpp.projectURL, text);
 	}
 
 	void annotate(String projectURL, MarkupText text) {

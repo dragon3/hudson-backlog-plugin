@@ -10,53 +10,57 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
 /**
- * Property for {@link AbstractProject} that stores the associated Backlog website URL.
- *
+ * Property for {@link AbstractProject} that stores the associated Backlog
+ * website URL.
+ * 
  * @author dragon3
  */
-public final class BacklogProjectProperty extends JobProperty<AbstractProject<?,?>> {
+public final class BacklogProjectProperty extends
+		JobProperty<AbstractProject<?, ?>> {
 
-    public final String projectURL;
+	public final String projectURL;
 
-    @DataBoundConstructor
-    public BacklogProjectProperty(String projectURL) {
-        // normalize
-        if(projectURL ==null || projectURL.length()==0)
-            projectURL=null;
-        else {
-            if(!projectURL.endsWith("/"))
-                projectURL += '/';
-        }
-        this.projectURL = projectURL;
-    }
-    
-    public DescriptorImpl getDescriptor() {
-        return DESCRIPTOR;
-    }
+	@DataBoundConstructor
+	public BacklogProjectProperty(String projectURL) {
+		// normalize
+		if (projectURL == null || projectURL.length() == 0)
+			projectURL = null;
+		else {
+			if (!projectURL.endsWith("/"))
+				projectURL += '/';
+		}
+		this.projectURL = projectURL;
+	}
 
-    public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
+	public DescriptorImpl getDescriptor() {
+		return DESCRIPTOR;
+	}
 
-    public static final class DescriptorImpl extends JobPropertyDescriptor {
+	public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
-        public DescriptorImpl() {
-            super(BacklogProjectProperty.class);
-            load();
-        }
+	public static final class DescriptorImpl extends JobPropertyDescriptor {
 
-        public boolean isApplicable(Class<? extends Job> jobType) {
-            return AbstractProject.class.isAssignableFrom(jobType);
-        }
+		public DescriptorImpl() {
+			super(BacklogProjectProperty.class);
+			load();
+		}
 
-        public String getDisplayName() {
-            return "Associated Trac website";
-        }
+		public boolean isApplicable(Class<? extends Job> jobType) {
+			return AbstractProject.class.isAssignableFrom(jobType);
+		}
 
-        @Override
-        public JobProperty<?> newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            BacklogProjectProperty bpp = req.bindJSON(BacklogProjectProperty.class,formData);
-            if(bpp.projectURL==null)
-                bpp = null; // not configured
-            return bpp;
-        }
-    }
+		public String getDisplayName() {
+			return "Associated Trac website";
+		}
+
+		@Override
+		public JobProperty<?> newInstance(StaplerRequest req,
+				JSONObject formData) throws FormException {
+			BacklogProjectProperty bpp = req.bindJSON(
+					BacklogProjectProperty.class, formData);
+			if (bpp.projectURL == null)
+				bpp = null; // not configured
+			return bpp;
+		}
+	}
 }
