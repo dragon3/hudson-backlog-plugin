@@ -1,5 +1,6 @@
 package hudson.plugins.backlog;
 
+import hudson.Extension;
 import hudson.model.AbstractProject;
 import hudson.model.Job;
 import hudson.model.JobProperty;
@@ -15,27 +16,27 @@ import org.kohsuke.stapler.StaplerRequest;
  * 
  * @author dragon3
  */
-public final class BacklogProjectProperty extends
-		JobProperty<AbstractProject<?, ?>> {
+public final class BacklogProjectProperty extends JobProperty<AbstractProject<?, ?>> {
 
-	public final String projectURL;
+	public final String spaceURL;
 
 	@DataBoundConstructor
-	public BacklogProjectProperty(String projectURL) {
+	public BacklogProjectProperty(String spaceURL) {
 		// normalize
-		if (projectURL == null || projectURL.length() == 0)
-			projectURL = null;
+		if (spaceURL == null || spaceURL.length() == 0)
+			spaceURL = null;
 		else {
-			if (!projectURL.endsWith("/"))
-				projectURL += '/';
+			if (!spaceURL.endsWith("/"))
+				spaceURL += '/';
 		}
-		this.projectURL = projectURL;
+		this.spaceURL = spaceURL;
 	}
 
 	public DescriptorImpl getDescriptor() {
 		return DESCRIPTOR;
 	}
 
+	@Extension
 	public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
 	public static final class DescriptorImpl extends JobPropertyDescriptor {
@@ -50,7 +51,7 @@ public final class BacklogProjectProperty extends
 		}
 
 		public String getDisplayName() {
-			return "Associated Trac website";
+			return "Associated Backlog website";
 		}
 
 		@Override
@@ -58,7 +59,7 @@ public final class BacklogProjectProperty extends
 				JSONObject formData) throws FormException {
 			BacklogProjectProperty bpp = req.bindJSON(
 					BacklogProjectProperty.class, formData);
-			if (bpp.projectURL == null)
+			if (bpp.spaceURL == null)
 				bpp = null; // not configured
 			return bpp;
 		}

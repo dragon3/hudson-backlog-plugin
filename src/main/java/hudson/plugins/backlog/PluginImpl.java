@@ -4,21 +4,20 @@ import hudson.Plugin;
 import hudson.model.Jobs;
 
 /**
- * @author dragon3
+ * @author Kohsuke Kawaguchi
+ * @plugin
  */
 public class PluginImpl extends Plugin {
-
-	private final BacklogChangelogAnnotator annotator = new BacklogChangelogAnnotator();
-
+	private BacklogChangelogAnnotator annotator = new BacklogChangelogAnnotator();
+	
 	@Override
 	public void start() throws Exception {
-		annotator.register();
-		Jobs.PROPERTIES.add(BacklogProjectProperty.DESCRIPTOR);
-		// RepositoryBrowsers.LIST.add(BacklogRepositoryBrowser.DESCRIPTOR);
-	}
-
+        Jobs.PROPERTIES.add(BacklogProjectProperty.DESCRIPTOR);
+        annotator.register();
+    }
 	@Override
 	public void stop() throws Exception {
-		annotator.unregister();
+        annotator.unregister();
 	}
+	
 }
