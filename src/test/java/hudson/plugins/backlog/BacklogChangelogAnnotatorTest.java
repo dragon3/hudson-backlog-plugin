@@ -39,6 +39,12 @@ public class BacklogChangelogAnnotatorTest {
 			annotator.annotate("https://backlog.backlog.jp/", text);
 			Assert.assertEquals("IEの場合に表示がおかしかったのを修正（<a href=\"https://backlog.backlog.jp/view/BLG-1384\">BLG-1384</a>）", text.toString());
 		}
+		{
+			String src = "2009-05-15 IEの場合に表示がおかしかったのを修正（BLG-1384）";
+			MarkupText text = new MarkupText(src);
+			annotator.annotate("https://backlog.backlog.jp/", text);
+			Assert.assertEquals("2009-05-15 IEの場合に表示がおかしかったのを修正（<a href=\"https://backlog.backlog.jp/view/BLG-1384\">BLG-1384</a>）", text.toString());
+		}
 	}
 	
 	@Test
