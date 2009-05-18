@@ -20,7 +20,7 @@
   
   <scm>
     <connection>scm:git:git://github.com/dragon3/hudson-backlog-plugin.git</connection>
-    <url>http://github.com/dragon3/hudson-backlog-plugin/</url>
+    <url>scm:git:git://github.com/dragon3/hudson-backlog-plugin.git</url>
   </scm>
 
   <dependencies>
@@ -55,6 +55,28 @@
           <source>1.5</source>
           <target>1.5</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-gitexe</artifactId>
+            <version>1.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-gitexe</artifactId>
+            <version>1.2</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
