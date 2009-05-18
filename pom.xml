@@ -19,6 +19,7 @@
   </properties>
   
   <scm>
+    <developerConnection>scm:git:git://github.com/dragon3/hudson-backlog-plugin.git</developerConnection>
     <connection>scm:git:git://github.com/dragon3/hudson-backlog-plugin.git</connection>
     <url>scm:git:git://github.com/dragon3/hudson-backlog-plugin.git</url>
   </scm>
