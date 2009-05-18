@@ -4,3 +4,4 @@ target
 .settings
 work
 release.properties
+pom.xml.*
