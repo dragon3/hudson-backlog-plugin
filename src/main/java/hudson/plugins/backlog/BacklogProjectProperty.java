@@ -2,6 +2,7 @@ package hudson.plugins.backlog;
 
 import hudson.Extension;
 import hudson.model.AbstractProject;
+import hudson.model.Action;
 import hudson.model.Job;
 import hudson.model.JobProperty;
 import hudson.model.JobPropertyDescriptor;
@@ -32,11 +33,17 @@ public final class BacklogProjectProperty extends JobProperty<AbstractProject<?,
 		this.spaceURL = spaceURL;
 	}
 
-	public DescriptorImpl getDescriptor() {
+    @Override
+    public Action getJobAction(AbstractProject<?,?> job) {
+        return new BacklogLinkAction(this);
+    }
+	
+	@Override
+	public JobPropertyDescriptor getDescriptor() {
 		return DESCRIPTOR;
 	}
 
-	@Extension
+	//@Extension
 	public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
 	public static final class DescriptorImpl extends JobPropertyDescriptor {
@@ -55,10 +62,8 @@ public final class BacklogProjectProperty extends JobProperty<AbstractProject<?,
 		}
 
 		@Override
-		public JobProperty<?> newInstance(StaplerRequest req,
-				JSONObject formData) throws FormException {
-			BacklogProjectProperty bpp = req.bindJSON(
-					BacklogProjectProperty.class, formData);
+		public JobProperty<?> newInstance(StaplerRequest req, JSONObject formData) throws FormException {
+			BacklogProjectProperty bpp = req.bindJSON(BacklogProjectProperty.class, formData);
 			if (bpp.spaceURL == null)
 				bpp = null; // not configured
 			return bpp;

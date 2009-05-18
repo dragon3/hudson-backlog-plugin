@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.304</version>
+    <version>1.306</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   
@@ -15,7 +15,7 @@
   <description>Integrates Hudson to Backlog</description>
   
   <properties>
-    <hudson.version>1.300</hudson.version>
+    <hudson.version>1.306</hudson.version>
   </properties>
 
   <dependencies>

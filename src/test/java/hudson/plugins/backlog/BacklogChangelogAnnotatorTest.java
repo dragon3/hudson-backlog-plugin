@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 
 import hudson.MarkupText;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,14 +23,21 @@ public class BacklogChangelogAnnotatorTest {
 			String src = "[[BLG-123]]について、対応しました。";
 			MarkupText text = new MarkupText(src);
 			annotator.annotate("https://backlog.backlog.jp", text);
-			System.out.println(text.toString());
+			Assert.assertEquals("<a href=\"https://backlog.backlog.jp/view/BLG-123\">[[BLG-123]]</a>について、対応しました。", text.toString());
 		}
 
 		{
 			String src = "BLG-123について、対応しました。";
 			MarkupText text = new MarkupText(src);
 			annotator.annotate("https://backlog.backlog.jp", text);
-			System.out.println(text.toString());
+			Assert.assertEquals("<a href=\"https://backlog.backlog.jp/view/BLG-123\">BLG-123</a>について、対応しました。", text.toString());
+		}
+		
+		{
+			String src = "IEの場合に表示がおかしかったのを修正（BLG-1384）";
+			MarkupText text = new MarkupText(src);
+			annotator.annotate("https://backlog.backlog.jp", text);
+			Assert.assertEquals("IEの場合に表示がおかしかったのを修正（<a href=\"https://backlog.backlog.jp/view/BLG-1384\">BLG-1384</a>）", text.toString());
 		}
 	}
 	

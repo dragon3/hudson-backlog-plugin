@@ -21,18 +21,18 @@ import org.apache.commons.logging.LogFactory;
  * @version $Id$
  */
 public class BacklogChangelogAnnotator extends ChangeLogAnnotator {
-	
-	private static final Log LOG = LogFactory.getLog(BacklogChangelogAnnotator.class);
 
-    public static final Pattern ISSUE_KEY_PATTERN = Pattern
+	private static final Log LOG = LogFactory
+			.getLog(BacklogChangelogAnnotator.class);
+
+	public static final Pattern ISSUE_KEY_PATTERN = Pattern
 			.compile("(?:(?<![/A-Z0-9a-z])([A-Z0-9]+-[1-9][0-9]*)|\\[\\[([A-Z0-9]+-[1-9][0-9]*)\\]\\])");
-    
+
 	@Override
-	public void annotate(AbstractBuild<?, ?> build, Entry change,
-			MarkupText text) {
-		BacklogProjectProperty bpp = build.getProject().getProperty(
-				BacklogProjectProperty.class);
-		if (bpp == null || bpp.spaceURL== null) {
+	public void annotate(AbstractBuild<?, ?> build, Entry change, MarkupText text) {
+		BacklogProjectProperty bpp = build.getProject().getProperty(BacklogProjectProperty.class);
+		if (bpp == null || bpp.spaceURL == null) {
+			LOG.debug("BacklogProjectProperty is null or BacklogProjectProperty's spaceURL is null");
 			return;
 		}
 		annotate(bpp.spaceURL, text);
@@ -40,16 +40,17 @@ public class BacklogChangelogAnnotator extends ChangeLogAnnotator {
 
 	void annotate(String spaceURL, MarkupText text) {
 		Matcher m = ISSUE_KEY_PATTERN.matcher(text.getText());
-        List<SubText> r = new ArrayList<SubText>();
+		List<SubText> r = new ArrayList<SubText>();
 
-        while(m.find()) {
-        	SubText st = text.new SubText(m, 0);
-            r.add(st);
-        }
+		while (m.find()) {
+			SubText st = text.new SubText(m, 0);
+			r.add(st);
+		}
 
 		for (SubText token : r) {
 			LOG.debug("token=" + token.getText());
-			token.surroundWith("<a href=\"" + spaceURL + "/view/$1$2\">", "</a>");
+			token.surroundWith("<a href=\"" + spaceURL + "view/$1$2\">",
+					"</a>");
 		}
 	}
 }
