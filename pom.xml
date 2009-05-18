@@ -17,6 +17,11 @@
   <properties>
     <hudson.version>1.306</hudson.version>
   </properties>
+  
+  <scm>
+    <connection>scm:git:git://github.com/dragon3/hudson-backlog-plugin.git</connection>
+    <url>http://github.com/dragon3/hudson-backlog-plugin/</url>
+  </scm>
 
   <dependencies>
     <dependency>
